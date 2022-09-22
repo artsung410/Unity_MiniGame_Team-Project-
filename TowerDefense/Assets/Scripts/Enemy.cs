@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] Transform TargetPoint;
+    [SerializeField] private Transform TargetPoint;
+    [SerializeField] private Transform FinishPoint;
+    [SerializeField] private GameObject Sword;
 
     [Header("EnemySettings")]
     [SerializeField] private float MoveSpeed;
@@ -26,8 +28,42 @@ public class Enemy : MonoBehaviour
 
             if (false == isDetactive)
             {
-                transform.Translate(transform.forward * Time.deltaTime * MoveSpeed);
+                Vector3 dir = FinishPoint.position - transform.position;
+                transform.rotation = Quaternion.LookRotation(dir);
+                Sword.GetComponent<Animator>().SetBool("onAttack", false);
+                MoveTo();
+            }
+
+            else
+            {
+                Vector3 dir = TargetPoint.position - transform.position;
+                float Distance = Vector3.Distance(TargetPoint.position, transform.position);
+                transform.rotation = Quaternion.LookRotation(dir);
+
+                if (Distance < 2f)
+                {
+                    Sword.GetComponent<Animator>().SetBool("onAttack", true);
+                }
+
+                else
+                {
+                    Sword.GetComponent<Animator>().SetBool("onAttack", false);
+                    MoveTo();
+                }
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            isDetactive = true;
+        }
+    }
+
+    private void MoveTo()
+    {
+        transform.Translate(transform.forward * Time.deltaTime * MoveSpeed);
     }
 }
