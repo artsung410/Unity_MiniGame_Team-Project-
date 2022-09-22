@@ -34,7 +34,11 @@ public class PlayerMovePosition : MonoBehaviour
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
+
+
             {
+                Debug.DrawLine(mainCam.transform.position, hit.point, Color.blue, 3f);
+
                 _isMove = true;
                 _destination = hit.point;
                 agent.SetDestination(_destination);
