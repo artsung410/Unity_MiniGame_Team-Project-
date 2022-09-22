@@ -33,9 +33,7 @@ public class PlayerMovePosition : MonoBehaviour
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
-
-
+            if (Physics.Raycast(ray, out hit, 5000f))
             {
                 Debug.DrawLine(mainCam.transform.position, hit.point, Color.blue, 3f);
 
