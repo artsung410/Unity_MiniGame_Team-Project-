@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : SingletoneBehaviour
+public class GameManager : SingletoneBehaviour<GameManager>
 {
     #region 플레이어관련
 
     public float PlayerSpeed;
 
+
+
+    private PlayerDB playerData;
 
     #endregion
 
@@ -22,6 +25,9 @@ public class GameManager : SingletoneBehaviour
     public int TowerLevel;
 
     public int TowerPrice;
+
+
+    private TowerDB toweData;
 
     #endregion
 
@@ -38,14 +44,35 @@ public class GameManager : SingletoneBehaviour
     public int EnemyGold;
     public float EnemyAttackArea;
 
-    #endregion
 
 
-
-
-    #region 웨이브
-    public int RespawnTime;
-    public int RespawnEnemyCount;
+    private EnemyDB enemyData;
 
     #endregion
+
+
+
+
+    #region 웨이브관련
+
+    private WaveDB waveData;
+
+    #endregion
+
+    private void Awake()
+    {
+        waveData = DataManager.Instance.GetWaveData(1);
+    }
+
+    private void Start()
+    {
+        
+    }
+
+
+
+    private void Update()
+    {
+        
+    }
 }

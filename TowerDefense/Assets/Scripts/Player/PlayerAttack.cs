@@ -6,21 +6,11 @@ public class PlayerAttack : MonoBehaviour
 {
     public GameObject Target;
 
-    private void Awake()
-    {
-        // 적만 가지고있는 컴포넌트로 불러올것
-    }
+    #region Private필드
+    [SerializeField] float Damage; // 데미지 랜덤성 고려해볼만함
+    [SerializeField] int PlayerHP;
 
 
-    private void Update()
-    {
-        
-    }
+    #endregion
 
-
-    public void AttackToEnemy()
-    {
-        float damage;
-        float atkSpeed;
-    }
 }
