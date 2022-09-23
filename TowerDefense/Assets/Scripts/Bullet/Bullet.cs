@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private int Damage;
     [SerializeField] private float speed;
-    [SerializeField] private float Damage;
     [SerializeField] private float lifeTime;
 
     private void Start()
@@ -26,8 +26,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" || other.tag == "Enemy")
         {
+            other.gameObject.GetComponent<LivingEntity>().TakeDamage(Damage);
             BulletPool.ReturnObject(this);
         }
     }

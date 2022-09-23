@@ -20,7 +20,5 @@ public class PlayerAttack : MonoBehaviour
 
     public void AttackToEnemy()
     {
-        float damage;
-        float atkSpeed;
     }
 }

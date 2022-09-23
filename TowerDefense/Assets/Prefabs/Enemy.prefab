@@ -209,10 +209,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cefb7fbc33f1f40b92eb42e09ce53a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetPoint: {fileID: 0}
+  Health: 100
+  Damage: 5
   MoveSpeed: 10
   AttackSpeed: 0
   RotateSpeed: 0
+  TargetPoint: {fileID: 0}
+  FinishPoint: {fileID: 0}
+  Sword: {fileID: 5374123811741351968}
   isDetactive: 0
 --- !u!1 &5374123811741351968
 GameObject:

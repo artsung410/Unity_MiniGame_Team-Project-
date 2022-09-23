@@ -7,7 +7,6 @@ public class BulletPool : MonoBehaviour
     public static BulletPool Instance;
     public GameObject BulletPrefab;
     public int initActivationCount;
-
     private Queue<Bullet> Q = new Queue<Bullet>();
 
     private void Awake()
