@@ -14,10 +14,13 @@ public class PlayerMovePosition : MonoBehaviour
     private bool _isMove;
     private Vector3 _destination;
 
+    
+
     private void Awake()
     {
         mainCam = Camera.main;
         agent = GetComponent<NavMeshAgent>();
+        
     }
 
     private void Start()
@@ -54,6 +57,8 @@ public class PlayerMovePosition : MonoBehaviour
                 _isMove = false;
                 return;
             }
+
+            
 
             Vector3 direction = new Vector3(agent.steeringTarget.x, transform.position.y, agent.steeringTarget.z) - transform.position;
             Quaternion targetRot = Quaternion.LookRotation(direction);

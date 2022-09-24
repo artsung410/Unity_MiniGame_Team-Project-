@@ -62,11 +62,13 @@ public class GameManager : SingletoneBehaviour<GameManager>
     private void Awake()
     {
         waveData = DataManager.Instance.GetWaveData(1);
+        //enemyData = DataManager.Instance.GetEnemyData(1);
     }
 
     private void Start()
     {
-        
+        Debug.Log(waveData.ID);
+        //Debug.Log(enemyData.Move_Speed);
     }
 
 

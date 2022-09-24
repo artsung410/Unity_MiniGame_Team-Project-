@@ -158,6 +158,10 @@ public class DataManager : MonoBehaviour
 
                 // 함수가 처음 만들어질때 wave 불러옴 
                 instance.SetWaveDataFromCsv();
+                instance.SetEnemyDataFromCsv();
+                instance.SetPlayerDataFromCsv();
+                instance.SetTowerDataFromCsv();
+
 
 
                 DontDestroyOnLoad(container);
@@ -280,8 +284,6 @@ public class DataManager : MonoBehaviour
     #endregion
 
 
-
-
     #region ENEMY
 
     [Header("Enemy관련 DB")]
@@ -302,7 +304,24 @@ public class DataManager : MonoBehaviour
         {
             EnemyDataDict = new Dictionary<int, EnemyDB>();
         }
+
+        string[] enemyCsvLines = enemyDB.text.Substring(0, enemyDB.text.Length).Split('\n');
+        for (int i = 3; i < enemyCsvLines.Length; i++)
+        {
+            string[] row = enemyCsvLines[i].Split('\n');
+            EnemyDataDict.Add(int.Parse(row[0]), new EnemyDB(
+                int.Parse(row[0]),
+                row[1],
+                int.Parse(row[2]),
+                float.Parse(row[3]),
+                int.Parse(row[4]),
+                float.Parse(row[5]),
+                float.Parse(row[6]),
+                int.Parse(row[7])
+                ));
+        }
     }
+
 
     public EnemyDB GetEnemyData(int idx)
     {
@@ -329,26 +348,48 @@ public class DataManager : MonoBehaviour
 
     private void SetTowerDataFromCsv()
     {
+        if(towerDB == null)
+        {
+            return;
+        }
 
+        if (towerDataDict == null)
+        {
+            towerDataDict = new Dictionary<int, TowerDB>();
+        }
+
+        string[] towerCsvLines = towerDB.text.Substring(0, towerDB.text.Length).Split('\n');
+        for (int i = 3; i < towerCsvLines.Length; i++)
+        {
+            string[] row = towerCsvLines[i].Split('\n');
+            towerDataDict.Add(int.Parse(row[0]), new TowerDB(
+                int.Parse(row[0]),
+                row[1],
+                int.Parse(row[2]),
+                int.Parse(row[3]),
+                int.Parse(row[4]),
+                int.Parse(row[5]),
+                int.Parse(row[6]),
+                float.Parse(row[7]),
+                float.Parse(row[8])
+                ));
+        }
     }
 
-    public void GetTowerData(int idx)
+    public TowerDB GetTowerData(int idx)
     {
         Debug.Log("Tower Data 호출");
+
+        if (towerDataDict.ContainsKey(idx))
+        {
+            return towerDataDict[idx];
+        }
+
+        return null;
 
     }
 
     #endregion
-
-
-
-
-
-
-
-
-
-
 
 
 }
