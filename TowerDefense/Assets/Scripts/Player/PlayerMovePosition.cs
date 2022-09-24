@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 public class PlayerMovePosition : MonoBehaviour
 {
     public GameObject player;
@@ -64,9 +63,7 @@ public class PlayerMovePosition : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(direction);
 
             player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, targetRot, Time.deltaTime * 500f);
-
         }
-
     }
 
 }

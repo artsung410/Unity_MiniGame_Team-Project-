@@ -2,23 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTurret : MonoBehaviour
+public class EnemyTurret : Turret
 {
-    [Header("Enemy")]
-    [SerializeField] private Transform BulletSpawnPoint;
-    [SerializeField] private GameObject RotatedTurret;
-    [SerializeField] private GameObject Gun;
-    [SerializeField] private GameObject BulletPrefabs;
-
-    [Header("Target")]
-    [SerializeField] private Transform TargetPoint;
-
-    [Header("TurretOption")]
-    [SerializeField] private float RotateSpeed;
-
-    private bool onFire = false;
-    public bool isDetactive = false;
-    
     private void Start()
     {
         StartCoroutine(Fire());
@@ -28,13 +13,7 @@ public class EnemyTurret : MonoBehaviour
     {
         if (false == onFire)
         {
-            RotatedTurret.transform.Rotate(0, -1f * Time.deltaTime * RotateSpeed, 0) ;
-        }
-
-        else
-        {
-            Vector3 dir = TargetPoint.position - BulletSpawnPoint.position;
-            Gun.transform.rotation = Quaternion.LookRotation(dir);
+            RotatedTurret.transform.Rotate(0, -1f * Time.deltaTime * RotateSpeed, 0);
         }
     }
 
@@ -44,6 +23,8 @@ public class EnemyTurret : MonoBehaviour
         {
             onFire = true;
             isDetactive = true;
+            Vector3 dir = other.gameObject.transform.position - BulletSpawnPoint.position;
+            Gun.transform.rotation = Quaternion.LookRotation(dir);
         }
     }
 
@@ -55,7 +36,12 @@ public class EnemyTurret : MonoBehaviour
         }
     }
 
-    private IEnumerator Fire()
+    public override void TakeDamage(int damage)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override IEnumerator Fire()
     {
         while (true)
         {

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletPool : MonoBehaviour
+public class HowitzerBulletPool : MonoBehaviour
 {
-    public static BulletPool Instance;
-    public GameObject BulletPrefab;
+    public static HowitzerBulletPool Instance;
+    public GameObject HowitzerBulletPrefab;
     public int initActivationCount;
-    private Queue<Bullet> Q = new Queue<Bullet>();
+
+    private Queue<HowitzerBullet> Q = new Queue<HowitzerBullet>();
 
     private void Awake()
     {
@@ -15,9 +16,9 @@ public class BulletPool : MonoBehaviour
         Initilize(initActivationCount);
     }
 
-    private Bullet CreateNewObject()
+    private HowitzerBullet CreateNewObject()
     {
-        var newObj = Instantiate(BulletPrefab, transform).GetComponent<Bullet>();
+        var newObj = Instantiate(HowitzerBulletPrefab, transform).GetComponent<HowitzerBullet>();
         newObj.gameObject.SetActive(false);
         return newObj;
     }
@@ -30,7 +31,7 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    public static Bullet GetObject()
+    public static HowitzerBullet GetObject()
     {
         if (Instance.Q.Count > 0)
         {
@@ -47,7 +48,7 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    public static void ReturnObject(Bullet obj)
+    public static void ReturnObject(HowitzerBullet obj)
     {
         obj.gameObject.SetActive(false);
         Instance.Q.Enqueue(obj);

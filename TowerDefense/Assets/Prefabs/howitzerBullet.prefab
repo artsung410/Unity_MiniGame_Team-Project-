@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1611777305315968448}
   - component: {fileID: 8169532849804014260}
   - component: {fileID: 2503356561036082965}
-  - component: {fileID: 8453035083993157116}
+  - component: {fileID: 5173765088599875818}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: howitzerBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 48ca9e9006d415748878d67cdbbc077b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,7 +98,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8453035083993157116
+--- !u!114 &5173765088599875818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,9 +107,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4456314040289142920}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13ff46e9fa4e372428984f2ad1d0cdb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ee7d4b9ffae8d544aa643607f5afc33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 300
-  Damage: 10
-  lifeTime: 0.5
+  Speed: 30
+  Damage: 5
+  lifeTime: 2
