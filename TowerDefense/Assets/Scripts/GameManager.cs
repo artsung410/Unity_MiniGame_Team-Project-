@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : SingletoneBehaviour<GameManager>
 {
+    [SerializeField] private TextMeshProUGUI _goldText;
+
     #region 플레이어관련
 
     public float PlayerSpeed;
-
-
-
     private PlayerDB playerData;
+    public int PlayerGold;
 
     #endregion
 
@@ -61,20 +62,21 @@ public class GameManager : SingletoneBehaviour<GameManager>
 
     private void Awake()
     {
-        waveData = DataManager.Instance.GetWaveData(1);
+        //waveData = DataManager.Instance.GetWaveData(1);
         //enemyData = DataManager.Instance.GetEnemyData(1);
     }
 
     private void Start()
     {
-        Debug.Log(waveData.ID);
+        //Debug.Log(waveData.ID);
         //Debug.Log(enemyData.Move_Speed);
+        PlayerGold = 1000;
     }
 
 
 
     private void Update()
     {
-        
+        _goldText.text = $"Gold : {PlayerGold}";
     }
 }

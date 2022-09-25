@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class Enemy : LivingEntity
 {
     [SerializeField] private Transform TargetPoint;
     [SerializeField] private Transform FinishPoint;
     [SerializeField] private GameObject Sword;
 
+
     private UnityEngine.AI.NavMeshAgent agent;
     public bool isDetactive = false;
+
+    private int _giveGold;
+
 
     private void Awake()
     {
@@ -21,6 +26,9 @@ public class Enemy : LivingEntity
     {
         StartCoroutine(MoveAndAttack());
         agent.SetDestination(FinishPoint.position);
+
+        _giveGold = 300;
+
     }
 
     private IEnumerator MoveAndAttack()
@@ -64,11 +72,11 @@ public class Enemy : LivingEntity
             isDetactive = true;
         }
     }
-
     public override void TakeDamage(int damage)
     {
         if (Health <= 0)
         {
+            GameManager.Instance.PlayerGold += _giveGold;
             Health = 100;
             EnemyPool.ReturnObject(this);
             return;
