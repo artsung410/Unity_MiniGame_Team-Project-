@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState : MonoBehaviour
+public class PlayerState : LivingEntity
 {
+    public bool IsDead;
+    protected float Speed;
 
-
-    void Start()
+    public override void TakeDamage(int damage)
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    void Update()
+    private void Start()
     {
-        
+        IsDead = false;
+        Speed = MoveSpeed;
     }
 }
