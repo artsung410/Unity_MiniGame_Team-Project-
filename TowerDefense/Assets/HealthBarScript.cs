@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthBarScript : MonoBehaviour
 {
-    public GameObject target;
+    public GameObject PlayerHP;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,6 @@ public class HealthBarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = target.transform.position + new Vector3(0f, 4f, 0f);
+        transform.position = PlayerHP.transform.position + new Vector3(0f, 4f, 0f);
     }
 }

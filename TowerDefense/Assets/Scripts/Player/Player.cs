@@ -46,6 +46,12 @@ public class Player : LivingEntity
 
     private void Update()
     {
+        if (Health <= 0)
+        {
+            IsDead = true;
+            Debug.Log("플레이어 사망");
+        }
+
         //agent.speed = Speed * 4f;
         // 마우스클릭 위치를 캐릭터의 목적지로 설정
         if (IsDead == false)
@@ -68,21 +74,17 @@ public class Player : LivingEntity
 
             Move();
         }
-
-
     }
 
     private void Move()
     {
         if (_isMove)
         {
-            if (agent.velocity.magnitude == 0f)
+            if (agent.velocity.sqrMagnitude == 0f)
             {
                 _isMove = false;
                 return;
             }
-
-            
 
             Vector3 direction = new Vector3(agent.steeringTarget.x, transform.position.y, agent.steeringTarget.z) - transform.position;
             Quaternion targetRot = Quaternion.LookRotation(direction);
@@ -93,13 +95,10 @@ public class Player : LivingEntity
 
     public override void TakeDamage(int damage)
     {
-        if (Health <= 0)
-        {
-            IsDead = true;
-            Debug.Log("플레이어 사망");
-        }
-
         Health -= damage;
         HealthSlider.value = Health;
     }
+
+    
 }
+
