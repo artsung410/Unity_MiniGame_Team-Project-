@@ -39,7 +39,6 @@ public class EnemyPool : MonoBehaviour
             obj.gameObject.SetActive(true);
             return obj;
         }
-
         else
         {
             var newObj = Instance.CreateNewObject();

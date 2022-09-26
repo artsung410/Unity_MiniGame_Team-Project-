@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class TowerInfo : MonoBehaviour
 {
-    public static event Action<GameObject, GameObject, GameObject> TowerButtonClickSignal = delegate { };
+    public static event Action<GameObject, GameObject, GameObject, int> TowerButtonClickSignal = delegate { };
     public static TowerInfo Instance;
 
     public int ID;
@@ -31,16 +31,17 @@ public class TowerInfo : MonoBehaviour
         //TowerInventory.Instance.isGripTower = true;
         //TowerButtonClickSignal(SilhouetteTower, Unable_SilhouetteTower, BuildingTower);
 
-        if (BuildingTower.name == "Ally_GunTower")
+        if (BuildingTower.name == "Ally_GunTower") // 건타워클릭
         {
-            if (GameManager.Instance.PlayerGold - GunTowerPrice < 0)
+            if (GameManager.Instance.PlayerGold - GunTowerPrice < 0) // 만약 내가가진돈이 건타워 설치비용보다 작으면
             {
-                return;
+                return; //리턴
             }
             Debug.Log("총타워");
-            GameManager.Instance.PlayerGold -= GunTowerPrice;
+            // 건타워 설치가능 -> 클릭가능
+ 
             TowerInventory.Instance.isGripTower = true;
-            TowerButtonClickSignal(SilhouetteTower, Unable_SilhouetteTower, BuildingTower);
+            TowerButtonClickSignal(SilhouetteTower, Unable_SilhouetteTower, BuildingTower, GunTowerPrice);
 
         }
         else if(BuildingTower.name == "Ally_HowitzerTower")
@@ -50,9 +51,9 @@ public class TowerInfo : MonoBehaviour
                 return;
             }
             Debug.Log("곡사포");
-            GameManager.Instance.PlayerGold -= HowitzerTowerPrice;
+
             TowerInventory.Instance.isGripTower = true;
-            TowerButtonClickSignal(SilhouetteTower, Unable_SilhouetteTower, BuildingTower);
+            TowerButtonClickSignal(SilhouetteTower, Unable_SilhouetteTower, BuildingTower, HowitzerTowerPrice);
         }
         
     }

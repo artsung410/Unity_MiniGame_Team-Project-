@@ -45,7 +45,8 @@ public class GameManager : SingletoneBehaviour<GameManager>
     public int EnemyGold;
     public float EnemyAttackArea;
 
-
+    public int EnemySpawnCount;
+    public int EnemyDeathCount;
 
     private EnemyDB enemyData;
 
@@ -71,6 +72,7 @@ public class GameManager : SingletoneBehaviour<GameManager>
         //Debug.Log(waveData.ID);
         //Debug.Log(enemyData.Move_Speed);
         PlayerGold = 1000;
+
     }
 
 
@@ -78,5 +80,12 @@ public class GameManager : SingletoneBehaviour<GameManager>
     private void Update()
     {
         _goldText.text = $"Gold : {PlayerGold}";
+
+
+        if (EnemySpawnCount == EnemyDeathCount)
+        {
+            Debug.Log("´ÙÁ×ÀÓ");
+        }
+
     }
 }

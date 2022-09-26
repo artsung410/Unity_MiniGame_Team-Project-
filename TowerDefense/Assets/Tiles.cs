@@ -16,6 +16,10 @@ public class Tiles : MonoBehaviour
 
     private GameObject BuildingTower;
 
+    public bool isBuildingTower;
+
+    private int towerPrice;
+
     private void Awake()
     {
         TowerInfo.TowerButtonClickSignal += OnTower;
@@ -23,16 +27,17 @@ public class Tiles : MonoBehaviour
         prevMeshColor = meshRenderer.material.color;
     }
 
-    private void OnTower(GameObject SilhouetteTower, GameObject Un_SilhouetteTower, GameObject BuildingTower)
+    private void OnTower(GameObject SilhouetteTower, GameObject Un_SilhouetteTower, GameObject BuildingTower, int towerPrice)
     {
         this.SilhouetteTower = SilhouetteTower;
         Unable_SilhouetteTower = Un_SilhouetteTower;
         this.BuildingTower = BuildingTower;
+        this.towerPrice = towerPrice;
     }
 
     private void OnMouseEnter()
     {
-        if (TowerInventory.Instance.isGripTower)
+        if (TowerInventory.Instance.isGripTower && false == isBuildingTower)
         {
             if (gameObject.tag == "ValidTiles")
             {
@@ -52,9 +57,13 @@ public class Tiles : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (TowerInventory.Instance.isGripTower && gameObject.tag == "ValidTiles")
+        if (TowerInventory.Instance.isGripTower && gameObject.tag == "ValidTiles" && false == isBuildingTower && meshRenderer.material.color == Color.green)
         {
             GameObject newBuildingTower = Instantiate(BuildingTower);
+
+            GameManager.Instance.PlayerGold -= towerPrice;
+
+            isBuildingTower = true;
             newBuildingTower.transform.position = new Vector3(transform.position.x, transform.position.y + 3, transform.position.z);
             TowerInventory.Instance.isGripTower = false;
 
@@ -78,6 +87,17 @@ public class Tiles : MonoBehaviour
         {
             Destroy(NewUnable_SilhouetteTower);
         }
-
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,7 +16,6 @@ public class Enemy : LivingEntity
 
     private int _giveGold;
 
-
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -35,6 +34,7 @@ public class Enemy : LivingEntity
     {
         while(true)
         {
+
             yield return new WaitForSeconds(0.01f);
 
             if (false == isDetactive)
@@ -44,7 +44,6 @@ public class Enemy : LivingEntity
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, Time.deltaTime * 500f);
                 Sword.GetComponent<Animator>().SetBool("onAttack", false);
             }
-
             else
             {
                 //agent.ResetPath();
@@ -72,13 +71,17 @@ public class Enemy : LivingEntity
             isDetactive = true;
         }
     }
+    
     public override void TakeDamage(int damage)
     {
         if (Health <= 0)
         {
             GameManager.Instance.PlayerGold += _giveGold;
+            ++GameManager.Instance.EnemyDeathCount;
+            
             Health = 100;
-            EnemyPool.ReturnObject(this);
+            Destroy(gameObject);
+            //EnemyPool.ReturnObject(this);
             return;
         }
 
