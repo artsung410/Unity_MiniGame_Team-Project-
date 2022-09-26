@@ -243,12 +243,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletSpawnPoint: {fileID: 370152265381148664}
   RotatedTurret: {fileID: 370152266186011820}
-  Gun: {fileID: 370152266186011820}
+  Gun: {fileID: 370152265381148671}
   BulletPrefabs: {fileID: 4456314040289142920, guid: f83fa0de610786e42a3cc01061f6ebff, type: 3}
   RotateSpeed: 30
   Health: 100
   onFire: 0
   isDetactive: 0
+  _range: 20
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _target: {fileID: 0}
 --- !u!135 &370152266231952308
 SphereCollider:
   m_ObjectHideFlags: 0

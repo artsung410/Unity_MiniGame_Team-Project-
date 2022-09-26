@@ -5,41 +5,38 @@ using UnityEngine;
 public class HowitzerBullet : MonoBehaviour
 {
     [SerializeField] private float Speed;
-    [SerializeField] private float Damage;
+    [SerializeField] private int Damage;
     [SerializeField] private float lifeTime;
+
 
     private void Start()
     {
-        StartCoroutine(Deactivation());
+        StartCoroutine(spawnBullet());
     }
 
-    private void Update()
+    IEnumerator spawnBullet()
     {
-        Vector3 targetPos = AllyHowitzerTurret.Target;
-        Speed += Mathf.Pow(Time.deltaTime * 2f, 3);
-
-        if (targetPos != null)
+        while(true)
         {
-            Vector3 to = targetPos;
-            Vector3 from = transform.position;
-            Vector3 dir = to - from;
-
-            transform.rotation = Quaternion.LookRotation(dir);
-            transform.Translate(Vector3.forward * Time.deltaTime * Speed);
+            yield return new WaitForSeconds(2f);
+            GetComponent<ParabolaController>().FollowParabola();
         }
     }
 
-    IEnumerator Deactivation()
-    {
-        yield return new WaitForSeconds(lifeTime);
-        HowitzerBulletPool.ReturnObject(this);
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Enemy")
-        {
-            HowitzerBulletPool.ReturnObject(this);
-        }
-    }
+
+    //IEnumerator Deactivation()
+    //{
+    //    yield return new WaitForSeconds(lifeTime);
+    //    HowitzerBulletPool.ReturnObject(this);
+    //}
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "Enemy")
+    //    {
+    //        other.gameObject.GetComponent<LivingEntity>().TakeDamage(Damage);
+    //        HowitzerBulletPool.ReturnObject(this);
+    //    }
+    //}
 }

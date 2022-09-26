@@ -44,7 +44,7 @@ public class TowerInfo : MonoBehaviour
             TowerButtonClickSignal(SilhouetteTower, Unable_SilhouetteTower, BuildingTower, GunTowerPrice);
 
         }
-        else if(BuildingTower.name == "Ally_HowitzerTower")
+        else if(BuildingTower.name == "Ally_HowitzerTower(New)")
         {
             if (GameManager.Instance.PlayerGold - HowitzerTowerPrice < 0)
             {
