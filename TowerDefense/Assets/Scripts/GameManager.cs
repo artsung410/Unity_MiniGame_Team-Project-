@@ -71,7 +71,7 @@ public class GameManager : SingletoneBehaviour<GameManager>
     {
         //Debug.Log(waveData.ID);
         //Debug.Log(enemyData.Move_Speed);
-        PlayerGold = 1000;
+        PlayerGold = 10000;
 
     }
 
