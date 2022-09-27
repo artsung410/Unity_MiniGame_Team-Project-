@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float lifeTime;
 
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(Deactivation());
     }
