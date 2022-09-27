@@ -8,35 +8,47 @@ public class HowitzerBullet : MonoBehaviour
     [SerializeField] private int Damage;
     [SerializeField] private float lifeTime;
 
+    Rigidbody rb;
 
-    private void Start()
+    Vector3 prevVeclocity;
+    Vector3 PrevPos;
+    Quaternion prevRotation;
+
+    private void Awake()
     {
-        StartCoroutine(spawnBullet());
+        rb = GetComponent<Rigidbody>();
+        PrevPos = transform.position;
+        prevRotation = transform.rotation;
+        prevVeclocity = rb.velocity;
     }
 
-    IEnumerator spawnBullet()
+    private void OnEnable()
     {
-        while(true)
+        StartCoroutine(Deactivation());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy")
         {
-            yield return new WaitForSeconds(2f);
-            GetComponent<ParabolaController>().FollowParabola();
+            other.gameObject.GetComponent<LivingEntity>().TakeDamage(Damage);
+            Explosion explosion = ExplosionPool.GetObject();
+            explosion.gameObject.transform.position = transform.position;
+            explosion.gameObject.transform.rotation = Quaternion.identity;
         }
     }
 
+    IEnumerator Deactivation()
+    {
+        yield return new WaitForSeconds(lifeTime);
 
+        Explosion explosion = ExplosionPool.GetObject();
+        explosion.gameObject.transform.position = transform.position;
+        explosion.gameObject.transform.rotation = Quaternion.identity;
 
-    //IEnumerator Deactivation()
-    //{
-    //    yield return new WaitForSeconds(lifeTime);
-    //    HowitzerBulletPool.ReturnObject(this);
-    //}
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.tag == "Enemy")
-    //    {
-    //        other.gameObject.GetComponent<LivingEntity>().TakeDamage(Damage);
-    //        HowitzerBulletPool.ReturnObject(this);
-    //    }
-    //}
+        transform.position = PrevPos;
+        transform.rotation = prevRotation;
+        rb.velocity = prevVeclocity;
+        HowitzerBulletPool.ReturnObject(this);
+    }
 }

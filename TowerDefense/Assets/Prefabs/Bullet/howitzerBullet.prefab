@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8169532849804014260}
   - component: {fileID: 2503356561036082965}
   - component: {fileID: 5173765088599875818}
-  - component: {fileID: -5256089351527819736}
+  - component: {fileID: 4381799968146165105}
   m_Layer: 0
   m_Name: howitzerBullet
   m_TagString: Untagged
@@ -97,7 +97,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5173765088599875818
 MonoBehaviour:
@@ -114,19 +114,20 @@ MonoBehaviour:
   Speed: 15
   Damage: 30
   lifeTime: 2
---- !u!114 &-5256089351527819736
-MonoBehaviour:
+  explosionEffectPrefab: {fileID: 229608228671592503, guid: 11f027262bb9c184891a8e46bdeb2a17, type: 3}
+--- !u!54 &4381799968146165105
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4456314040289142920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b4d3ccb078712a458663b212db5ea69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 20
-  ParabolaRoot: {fileID: 0}
-  Autostart: 1
-  Animation: 1
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

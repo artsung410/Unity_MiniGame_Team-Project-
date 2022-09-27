@@ -9,7 +9,6 @@ public class AllyHowitzerTurret : Turret
     [SerializeField] LayerMask _layerMask = 0;
 
     public static Transform _target = null;
-    public GameObject BulletRoute;
 
     private void Start()
     {
@@ -19,11 +18,6 @@ public class AllyHowitzerTurret : Turret
 
     private void Update()
     {
-        if (_target != null)
-        {
-            BulletRoute.transform.GetChild(2).transform.position = _target.position;
-        }
-
         // 타겟이 없다면 포신은 회전만 한다
         if (_target == null)
         {
@@ -31,18 +25,12 @@ public class AllyHowitzerTurret : Turret
             Gun.transform.eulerAngles = new Vector3(0f, Gun.transform.eulerAngles.y, Gun.transform.eulerAngles.z);
             //Debug.Log("적 없음");
             RotatedTurret.transform.Rotate(new Vector3(0f, 45f, 0f) * Time.deltaTime);
-
-            onFire = false;
-            isDetactive = false;
         }
+
         else
         {
-            //Debug.Log("적 탐색");
-
-            onFire = true;
-            isDetactive = true;
-
-            Quaternion _lookRotation = Quaternion.LookRotation(_target.position - BulletSpawnPoint.position);
+            Vector3 dir = _target.position - BulletSpawnPoint.position;
+            Quaternion _lookRotation = Quaternion.LookRotation(dir);
             Gun.transform.rotation = _lookRotation;
 
             // 부드럽게 방향회전
@@ -60,6 +48,8 @@ public class AllyHowitzerTurret : Turret
         //콜라이더가 하나라도 검출되면 실행
         if (_colliders.Length > 0)
         {
+            onFire = true;
+
             // 짧은거리를 비교하려면 가장 긴 객체가 기준
             float _shortTempDistance = Mathf.Infinity; // 무한대 길이 생성
             // 검출된 콜라이더만큼 반복해주기
@@ -77,34 +67,12 @@ public class AllyHowitzerTurret : Turret
                     _shortTarget = _colTarget.transform;
                 }
             }
-
         }
+
         // 반복문이 완료되면 가장 가까운 대상이 검출됨
         // 최종타겟에 가장가까운대상을 넣어줌
         // 거리내에 타겟이 없다면 null을 넣어줌
         _target = _shortTarget;
-
-
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Enemy")
-        {
-            onFire = true;
-            isDetactive = true;
-            Target = other.gameObject.transform.position;
-            Vector3 dir = other.gameObject.transform.position - BulletSpawnPoint.position;
-            Gun.transform.rotation = Quaternion.LookRotation(dir);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Enemy")
-        {
-            onFire = false;
-        }
     }
 
     public override void TakeDamage(int damage)
@@ -115,16 +83,22 @@ public class AllyHowitzerTurret : Turret
     protected override IEnumerator Fire()
     {
         yield return null;
-        //while (true)
-        //{
-        //    yield return new WaitForSeconds(1f);
 
-        //    if (onFire)
-        //    {
-        //        HowitzerBullet bullet = HowitzerBulletPool.GetObject();
-        //        bullet.gameObject.transform.position = BulletSpawnPoint.position;
-        //        bullet.gameObject.transform.rotation = BulletSpawnPoint.rotation;
-        //    }
-        //}
+        while (true)
+        {
+            yield return new WaitForSeconds(2f);
+
+            if (_target != null)
+            {
+                HowitzerBullet bullet = HowitzerBulletPool.GetObject();
+                Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+                bullet.gameObject.transform.position = RotatedTurret.transform.position;
+                bullet.gameObject.transform.rotation = RotatedTurret.transform.rotation;
+
+                Vector3 dir = _target.position - bullet.gameObject.transform.position;
+                bulletRb.AddRelativeForce(dir.x* 22, 450f, dir.z* 22);
+            }
+        }
     }
 }
