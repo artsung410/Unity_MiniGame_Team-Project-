@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : LivingEntity
 {
@@ -49,6 +50,7 @@ public class Player : LivingEntity
         if (Health <= 0)
         {
             IsDead = true;
+            SceneManager.LoadScene("GameOverScene");
             Debug.Log("플레이어 사망");
         }
 
@@ -99,6 +101,14 @@ public class Player : LivingEntity
         HealthSlider.value = Health;
     }
 
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Finish") && GameManager.Instance.GameOverAvaliable)
+        {
+            SceneManager.LoadScene("EndingScene");
+        }
+    }
+
 }
 

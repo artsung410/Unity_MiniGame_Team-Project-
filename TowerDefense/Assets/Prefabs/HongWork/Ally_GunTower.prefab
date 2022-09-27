@@ -380,7 +380,7 @@ MonoBehaviour:
   onFire: 0
   isDetactive: 0
   _gunTower: {fileID: 7665361736311691072}
-  _range: 15
+  _range: 20
   _layerMask:
     serializedVersion: 2
     m_Bits: 256

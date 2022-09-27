@@ -17,13 +17,13 @@ public class EnemySpawnManager : MonoBehaviour
 
     IEnumerator EnmeySpawn()
     {
-        while(count < SpawnCount)
+        while(count + 1 < SpawnCount)
         {
             yield return new WaitForSeconds(SpawnTime);
             Enemy spawnEnemy = EnemyPool.GetObject();
-            ++count;
             //Debug.Log($"积己等 利: {count}");
             spawnEnemy.transform.position = transform.position;
+            ++count;
         }
     }
 }

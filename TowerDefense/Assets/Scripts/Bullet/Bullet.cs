@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" || other.tag == "Enemy")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<LivingEntity>().TakeDamage(Damage);
             BulletPool.ReturnObject(this);

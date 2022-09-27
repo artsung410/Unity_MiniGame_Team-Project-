@@ -72,10 +72,11 @@ public class GameManager : SingletoneBehaviour<GameManager>
         //Debug.Log(waveData.ID);
         //Debug.Log(enemyData.Move_Speed);
         PlayerGold = 1000;
+        GameOverAvaliable = false;
 
     }
 
-
+    public bool GameOverAvaliable;
 
     private void Update()
     {
@@ -85,6 +86,7 @@ public class GameManager : SingletoneBehaviour<GameManager>
         if (EnemySpawnCount == EnemyDeathCount)
         {
             Debug.Log("´ÙÁ×ÀÓ");
+            GameOverAvaliable = true;
         }
 
     }
