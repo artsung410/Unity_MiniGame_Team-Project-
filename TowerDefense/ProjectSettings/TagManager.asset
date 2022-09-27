@@ -9,6 +9,7 @@ TagManager:
   - ValidTiles
   - UnavailableTiles
   - PlayerNexus
+  - Sword
   layers:
   - Default
   - TransparentFX

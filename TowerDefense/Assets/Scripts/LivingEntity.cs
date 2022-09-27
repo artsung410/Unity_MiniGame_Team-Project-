@@ -12,3 +12,4 @@ public abstract class LivingEntity : MonoBehaviour
 
     public abstract void TakeDamage(int damage);
 }
+
